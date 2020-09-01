@@ -322,7 +322,7 @@ ReactDOM.render(
 #### weatherプロジェクトの作成
 
 ~~~~shell
-create-react-app weather --template cra-template-ey-office
+npx create-react-app weather --template cra-template-ey-office
 cd weather
 npm install @material-ui/core
 npm install @material-ui/icons

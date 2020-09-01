@@ -17,20 +17,12 @@ node -v
 
 ※ プロンプトは省略しました
 
-## create-react-appのインストール
-
-~~~shell
-npm install --global create-react-app
-~~~
-
-※ プロンプトは省略しました
-
 ## インストール確認用Reactプロジェクトの作成
 
 ~~~shell
 mkdir ReactWorks
 cd ReactWorks
-create-react-app hello_world --template cra-template-ey-office
+npx create-react-app hello_world --template cra-template-ey-office
 cd hello_world
 npm start
 ~~~

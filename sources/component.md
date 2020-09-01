@@ -3,7 +3,7 @@
 ## 新しいプロジェクトを作成
 
 ~~~~shell
-create-react-app jyanken --template cra-template-ey-office
+npx create-react-app jyanken --template cra-template-ey-office
 cd jyanken
 code .
 npm start

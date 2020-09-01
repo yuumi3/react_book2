@@ -3,7 +3,7 @@
 ### 新しいプロジェクトの作成
 
 ~~~~shell
-create-react-app money_book --template cra-template-ey-office
+npx create-react-app money_book --template cra-template-ey-office
 cd money_book
 code .
 npm start
