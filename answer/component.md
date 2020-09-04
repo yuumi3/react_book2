@@ -1,5 +1,40 @@
 # コンポーネント
 
+## 起動時に、グー、グー、引き分けが表示されないようにする
+
+~~~js
+import React, { useState } from 'react'
+import ReactDOM from 'react-dom'
+import './index.css'
+
+const JyankeGamePage: React.FC = () => {
+  const [human, setHuman] = useState<number>(0)
+  const [computer, setComputer] = useState<number>(0)
+  const [showScore, setShowScore] = useState<boolean>(false)
+
+  const pon = (humanHand: number) => {
+    const computerHand = Math.floor(Math.random() * 3)
+    setHuman(humanHand)
+    setComputer(computerHand)
+    setShowScore(true)
+  }
+
+  const judge = ():number =>  (computer - human + 3) % 3
+
+  return (
+    <>
+      <h1>じゃんけん ポン！</h1>
+      <JyankenBox actionPon={(te) => pon(te)} />
+      {showScore && <ScoreBox human={human} computer={computer} judgment={judge()} />}
+    </>
+  )
+}
+
+・・・以下は同じ・・・
+~~~
+
+
+
 ## BMI判定をしてくれるアプリ
 
 ~~~js
