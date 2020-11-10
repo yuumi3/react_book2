@@ -13,14 +13,13 @@ npm start
 
 ## 最初のコード
 
-* src/index.tsx (src¥index.tsx)
+* src/App.tsx (src¥App.tsx)
 
 ~~~js
 import React, { useState } from 'react'
-import ReactDOM from 'react-dom'
 import './index.css'
 
-const JyankeGamePage: React.FC = () => {
+export const App: React.FC = () => {
   const [human, setHuman] = useState<number>(0)
   const [computer, setComputer] = useState<number>(0)
 
@@ -72,9 +71,6 @@ const ScoreBox: React.FC<ScoreBoxProps> = (props) => {
     </table>
   )
 }
-
-
-ReactDOM.render(<JyankeGamePage />, document.getElementById('root'))
 ~~~
 
 * src/index.css (src¥index.css)
@@ -91,11 +87,10 @@ th { font-weight: 400; text-align: left; }
 
 ### Controlled Components
 
-* src/index.tsx  (src¥index.tsx)
+* src/App.tsx  (src¥App.tsx)
 
 ~~~js
 import React, { useState, useEffect } from 'react'
-import ReactDOM from 'react-dom'
 import './index.css'
 
 type BookType = {
@@ -104,7 +99,7 @@ type BookType = {
   amount: number
 }
 
-const MoneyBook: React.FC = () => {
+export const App: React.FC = () => {
   const [books, setBooks] = useState<BookType[]>([])
 
   useEffect(() => {
@@ -198,9 +193,6 @@ const MoneyEntry: React.FC<MoneyEntryProps> = (props) => {
 const Title: React.FC = (props) => {
   return (<h1>{props.children}</h1>)
 }
-
-
-ReactDOM.render(<MoneyBook />, document.getElementById('root'))
 ~~~
 
 * src/index.css (src¥index.css)
@@ -231,11 +223,10 @@ ReactDOM.render(<MoneyBook />, document.getElementById('root'))
 
 ### Uncontrolled Components
 
-* src/index.tsx (src¥index.tsx)
+* src/App.tsx (src¥App.tsx)
 
 ~~~js
 import React, { useState, useEffect, useRef } from 'react'
-import ReactDOM from 'react-dom'
 import './index.css'
 
 type BookType = {
@@ -244,7 +235,7 @@ type BookType = {
   amount: number
 }
 
-const MoneyBook: React.FC = () => {
+export const App: React.FC = () => {
   const [books, setBooks] = useState<BookType[]>([])
 
   useEffect(() => {
@@ -344,9 +335,6 @@ const MoneyEntry: React.FC<MoneyEntryProps> = (props) => {
 const Title: React.FC = (props) => {
   return (<h1>{props.children}</h1>)
 }
-
-
-ReactDOM.render(<MoneyBook />, document.getElementById('root'))
 ~~~
 
 * src/index.css は変更無し

@@ -13,14 +13,13 @@ npm start
 
 ### JSXを書いてみる(ほぼHTMLのコード)
 
-* src/index.tsx (src¥index.tsx)
+* src/App.tsx (src¥App.tsx)
 
 ~~~js
 import React from 'react'
-import ReactDOM from 'react-dom'
 import './index.css'
 
-const MoneyBook: React.FC = () => {
+export const App: React.FC = () => {
   return (
     <div>
       <h1>小遣い帳</h1>
@@ -38,8 +37,6 @@ const MoneyBook: React.FC = () => {
     </div>
   )
 }
-
-ReactDOM.render(<MoneyBook />, document.getElementById('root'))
 ~~~
 
 * src/index.css (src¥index.css)
@@ -58,7 +55,6 @@ ReactDOM.render(<MoneyBook />, document.getElementById('root'))
 
 ~~~js
 import React from 'react'
-import ReactDOM from 'react-dom'
 import './index.css'
 
 type BookType = {
@@ -66,7 +62,7 @@ type BookType = {
   item: string
   amount: number
 }
-const MoneyBook: React.FC = () => {
+export const App: React.FC = () => {
   const books: BookType[] = [
     {date: "1/1", item: "お年玉", amount: 10000},
     {date: "1/3", item: "ケーキ", amount: -500},
@@ -84,20 +80,17 @@ const MoneyBook: React.FC = () => {
           <tr><td>{books[1].date}</td><td>{books[1].item}</td><td></td><td>{-books[1].amount}</td></tr>
           <tr><td>{books[2].date}</td><td>{books[2].item}</td><td>{books[2].amount}</td><td></td></tr>
           <tr><td>{books[3].date}</td><td>{books[3].item}</td><td></td><td>{-books[3].amount}</td></tr>
-         </tbody>
+        </tbody>
       </table>
     </div>
   )
 }
-
-ReactDOM.render(<MoneyBook />, document.getElementById('root'))
 ~~~
 
 ### コンポーネントの分割
 
 ~~~js
 import React from 'react'
-import ReactDOM from 'react-dom'
 import './index.css'
 
 type BookType = {
@@ -105,7 +98,7 @@ type BookType = {
   item: string
   amount: number
 }
-const MoneyBook: React.FC = () => {
+export const App: React.FC = () => {
   const books: BookType[] = [
     {date: "1/1", item: "お年玉", amount: 10000},
     {date: "1/3", item: "ケーキ", amount: -500},
@@ -154,15 +147,12 @@ const MoneyBookItem: React.FC<MoneyBookItemProps> = (props) => {
     )
   }
 }
-
-ReactDOM.render(<MoneyBook />, document.getElementById('root'))
 ~~~
 
 ### 条件演算子を使いJSXをコンパクトにする
 
 ~~~js
 import React from 'react'
-import ReactDOM from 'react-dom'
 import './index.css'
 
 type BookType = {
@@ -170,7 +160,7 @@ type BookType = {
   item: string
   amount: number
 }
-const MoneyBook: React.FC = () => {
+export const App: React.FC = () => {
   const books: BookType[] = [
     {date: "1/1", item: "お年玉", amount: 10000},
     {date: "1/3", item: "ケーキ", amount: -500},
@@ -208,15 +198,12 @@ const MoneyBookItem: React.FC<MoneyBookItemProps> = (props) => {
      </tr>
   )
 }
-
-ReactDOM.render(<MoneyBook />, document.getElementById('root'))
 ~~~
 
 ### 繰り返し
 
 ~~~js
 import React from 'react'
-import ReactDOM from 'react-dom'
 import './index.css'
 
 type BookType = {
@@ -224,7 +211,7 @@ type BookType = {
   item: string
   amount: number
 }
-const MoneyBook: React.FC = () => {
+export const App: React.FC = () => {
   const books: BookType[] = [
     {date: "1/1", item: "お年玉", amount: 10000},
     {date: "1/3", item: "ケーキ", amount: -500},
@@ -260,15 +247,12 @@ const MoneyBookItem: React.FC<MoneyBookItemProps> = (props) => {
      </tr>
   )
 }
-
-ReactDOM.render(<MoneyBook />, document.getElementById('root'))
 ~~~
 
 ### 子要素を扱うコンポーネント
 
 ~~~js
 import React from 'react'
-import ReactDOM from 'react-dom'
 import './index.css'
 
 type BookType = {
@@ -276,14 +260,14 @@ type BookType = {
   item: string
   amount: number
 }
-const MoneyBook: React.FC = () => {
+export const App: React.FC = () => {
   const books: BookType[] = [
     {date: "1/1", item: "お年玉", amount: 10000},
     {date: "1/3", item: "ケーキ", amount: -500},
     {date: "2/1", item: "小遣い", amount: 3000},
     {date: "2/5", item: "マンガ", amount: -600}]
    return (
-     <div>
+    <div>
       <Title>小遣い帳</Title>
       <table className="book">
         <thead>
@@ -309,18 +293,11 @@ const MoneyBookItem: React.FC<MoneyBookItemProps> = (props) => {
       <td>{item}</td>
       <td>{amount >= 0 ? amount : null}</td>
       <td>{amount < 0 ? -amount : null}</td>
-     </tr>
+    </tr>
   )
 }
 
 const Title: React.FC = (props) => {
   return (<h1>{props.children}</h1>)
 }
-
-ReactDOM.render(
-  <MoneyBook />,
-  document.getElementById('root')
-)
-
-ReactDOM.render(<MoneyBook />, document.getElementById('root'))
 ~~~

@@ -1,6 +1,6 @@
 # Redux
 
-## Redux版、ジャンケンアプリ
+## ジャンケンアプリ
 
 ### インストール
 
@@ -16,6 +16,7 @@ npm install @reduxjs/toolkit react-redux redux-logger @types/react-redux @types/
 
 ~~~js
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
+import { combineReducers } from '@reduxjs/toolkit'
 
 export enum Te { Guu, Choki, Paa }
 export enum Judgment {Draw, Win, Lose}
@@ -52,22 +53,24 @@ const jyankenSlice = createSlice({
 export const { pon } = jyankenSlice.actions
 export const jyankenReducer = jyankenSlice.reducer
 
+export const rootReducer = combineReducers({
+  jyanken: jyankenReducer
+})
+export type RootState = ReturnType<typeof rootReducer>
+
+
 const calcStatus = (scores: Score[]):Statuses => {
   const countScore = (judge: Judgment): number => scores.filter(e => e.judgment === judge).length
   return {draw: countScore(Judgment.Draw), win: countScore(Judgment.Win), lose: countScore(Judgment.Lose)}
 }
 ~~~
 
-* src/index.tsx  (src¥index.tsx)
+* src/App.tsx  (src¥App.tsx)
 
 ~~~js
 import React from 'react'
-import ReactDOM from 'react-dom'
-import { BrowserRouter as Router,
-         Switch, Route,  Redirect, Link, useLocation } from 'react-router-dom'
-import { Provider, useDispatch, useSelector } from  'react-redux'
-import { configureStore, getDefaultMiddleware, combineReducers } from '@reduxjs/toolkit'
-import logger from 'redux-logger'
+import { Switch, Route,  Redirect, Link, useLocation } from 'react-router-dom'
+import { useDispatch, useSelector } from  'react-redux'
 import Button from '@material-ui/core/Button'
 import Paper from '@material-ui/core/Paper'
 import Table from '@material-ui/core/Table'
@@ -75,9 +78,9 @@ import TableBody from '@material-ui/core/TableBody'
 import TableCell from '@material-ui/core/TableCell'
 import TableHead from '@material-ui/core/TableHead'
 import TableRow from '@material-ui/core/TableRow'
-import { jyankenReducer, Judgment, pon, Te, Score } from './jyankenSlice'
+import { Judgment, pon, Te, Score, RootState } from './jyankenSlice'
 
-const JyankeGamePage: React.FC = () => {
+export const App: React.FC = () => {
   let location = useLocation()
   const tabStyle = {width: 200, height: 50, color: '#fff', backgroundColor: '#01bcd4'}
   const activeStyle = (path: string) => {
@@ -140,7 +143,7 @@ const JyankenBox: React.FC = () => {
 }
 
 const ScoreList: React.FC = () => {
-  const scores = useSelector((state:RootState) =>  state.jyanken.scores)
+  const scores: Score[] = useSelector((state:RootState) =>  state.jyanken.scores)
   return (
     <Table>
       <TableHead>
@@ -173,13 +176,21 @@ const ScoreListItem: React.FC<ScoreListItemProps> = (props) => {
     </TableRow>
   )
 }
+~~~
 
-//  ==== Redux toolkit
 
-const rootReducer = combineReducers({
-  jyanken: jyankenReducer
-})
-type RootState = ReturnType<typeof rootReducer>
+* src/index.tsx  (src¥index.tsx)
+
+~~~js
+import React from 'react'
+import ReactDOM from 'react-dom'
+import logger from 'redux-logger'
+
+import { App } from './App'
+import { BrowserRouter as Router } from 'react-router-dom'
+import { Provider } from  'react-redux'
+import { rootReducer } from './jyankenSlice'
+import { configureStore, getDefaultMiddleware } from '@reduxjs/toolkit'
 
 const middlewares = [...getDefaultMiddleware({serializableCheck: false}), logger]
 const store = configureStore({
@@ -187,26 +198,40 @@ const store = configureStore({
     middleware: middlewares,
 })
 
+
 ReactDOM.render(
   <Provider store={store}>
     <Router>
-      <JyankeGamePage/>
+      <React.StrictMode>
+        <App />
+      </React.StrictMode>,
     </Router>
   </Provider>,
   document.getElementById('root')
 )
 ~~~
 
-## API通信等の非同期処理
 
-* index.tsx
+## weatherアプリ
+
+API通信等の非同期処理
+
+### インストール
+
+~~~shell
+npm install @reduxjs/toolkit react-redux redux-logger @types/react-redux @types/redux-logger
+~~~
+
+※ プロンプトは省略しました
+
+### コード
+
+* src/App.tsx
 
 ~~~js
 import React from 'react'
-import ReactDOM from 'react-dom'
-import { Provider, useDispatch, useSelector } from  'react-redux'
-import { configureStore, getDefaultMiddleware, combineReducers, createSlice, PayloadAction } from '@reduxjs/toolkit'
-import logger from 'redux-logger'
+import { useDispatch, useSelector } from  'react-redux'
+import { combineReducers, createSlice, PayloadAction } from '@reduxjs/toolkit'
 import Card from '@material-ui/core/Card'
 import CardHeader from '@material-ui/core/CardHeader'
 import CardActions from '@material-ui/core/CardActions'
@@ -230,7 +255,7 @@ const Places:PlaceType[] = [
 const OpenWeatherMapKey = "＊＊ ここに取得したAPIキーを書いて下さい ＊＊"
 
 
-const WeatherPage: React.FC = () => {
+export const App: React.FC = () => {
   const loading = useSelector((state:RootState) =>  state.weather.loading)
   const placeIndex = useSelector((state:RootState) =>  state.weather.placeIndex)
 
@@ -339,11 +364,23 @@ export const getWeather = (index: number) => {
   }
 }
 
-const rootReducer = combineReducers({
+
+export const rootReducer = combineReducers({
   weather: weatherSReducer
 })
 
 type RootState = ReturnType<typeof rootReducer>
+~~~
+
+* src/index.tsx
+
+~~~js
+import React from 'react'
+import ReactDOM from 'react-dom'
+import { Provider } from  'react-redux'
+import { configureStore, getDefaultMiddleware } from '@reduxjs/toolkit'
+import logger from 'redux-logger'
+import { App, rootReducer } from './App'
 
 const middlewares = [...getDefaultMiddleware({serializableCheck: false}), logger]
 const store = configureStore({
@@ -353,10 +390,8 @@ const store = configureStore({
 
 ReactDOM.render(
   <Provider store={store}>
-    <WeatherPage/>
+    <App />
   </Provider>,
   document.getElementById('root')
 )
 ~~~
-
-

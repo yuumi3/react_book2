@@ -39,7 +39,7 @@ export default class Jyanken {
 * src/Jyanke.test.ts  (src¥Jyanke.test.ts)
 
 ~~~js
-import Jyanken from './Jyanken'
+import Jyanken, { Te, Judgment } from './Jyanken'
 
 describe('Jyanken', () => {
   const jyanken = new Jyanken()
@@ -47,46 +47,46 @@ describe('Jyanken', () => {
   describe('勝敗の判定が正しいか', () => {
     describe('コンピュターがグーの場合', () => {
       test('人間がグーなら引き分け', () => {
-        jyanken.pon(0, 0)
-        expect(jyanken.getScores()[0].judgment).toBe(0)
+        jyanken.pon(Te.Guu, Te.Guu)
+        expect(jyanken.getScores()[0].judgment).toBe(Judgment.Draw)
       })
       test('人間がチョキなら負け', () => {
-        jyanken.pon(1, 0)
-        expect(jyanken.getScores()[0].judgment).toBe(2)
+        jyanken.pon(Te.Choki, Te.Guu)
+        expect(jyanken.getScores()[0].judgment).toBe(Judgment.Lose)
       })
       test('人間がパーなら勝ち', () => {
-        jyanken.pon(2, 0)
-        expect(jyanken.getScores()[0].judgment).toBe(1)
+        jyanken.pon(Te.Paa, Te.Guu)
+        expect(jyanken.getScores()[0].judgment).toBe(Judgment.Win)
       })
     })
 
     describe('コンピュターがチョキの場合', () => {
       test('人間がグーなら勝ち', () => {
-        jyanken.pon(0, 1)
-        expect(jyanken.getScores()[0].judgment).toBe(1)
+        jyanken.pon(Te.Guu, Te.Choki)
+        expect(jyanken.getScores()[0].judgment).toBe(Judgment.Win)
       })
       test('人間がチョキなら引き分け', () => {
-        jyanken.pon(1, 1)
-        expect(jyanken.getScores()[0].judgment).toBe(0)
+        jyanken.pon(Te.Choki, Te.Choki)
+        expect(jyanken.getScores()[0].judgment).toBe(Judgment.Draw)
       })
       test('人間がパーなら負け', () => {
-        jyanken.pon(2, 1)
-        expect(jyanken.getScores()[0].judgment).toBe(2)
+        jyanken.pon(Te.Paa, Te.Choki)
+        expect(jyanken.getScores()[0].judgment).toBe(Judgment.Lose)
       })
     })
 
     describe('コンピュターがパーの場合', () => {
       test('人間がグーなら負け', () => {
-        jyanken.pon(0, 2)
-        expect(jyanken.getScores()[0].judgment).toBe(2)
+        jyanken.pon(Te.Guu, Te.Paa)
+        expect(jyanken.getScores()[0].judgment).toBe(Judgment.Lose)
       })
       test('人間がチョキなら勝ち', () => {
-        jyanken.pon(1, 2)
-        expect(jyanken.getScores()[0].judgment).toBe(1)
+        jyanken.pon(Te.Choki, Te.Paa)
+        expect(jyanken.getScores()[0].judgment).toBe(Judgment.Win)
       })
       test('人間がパーなら引き分け', () => {
-        jyanken.pon(2, 2)
-        expect(jyanken.getScores()[0].judgment).toBe(0)
+        jyanken.pon(Te.Paa, Te.Paa)
+        expect(jyanken.getScores()[0].judgment).toBe(Judgment.Draw)
       })
     })
   })

@@ -43,11 +43,10 @@ export default class Jyanken {
 }
 ~~~
 
-* src/index.tsx (src¥index.tsx)
+* src/App.tsx (src¥App.tsx)
 
 ~~~js
 import React, { useState, useMemo } from 'react'
-import ReactDOM from 'react-dom'
 import Button from '@material-ui/core/Button'
 import Paper from '@material-ui/core/Paper'
 import Tabs from '@material-ui/core/Tabs'
@@ -59,7 +58,7 @@ import TableHead from '@material-ui/core/TableHead'
 import TableRow from '@material-ui/core/TableRow'
 import Jyanken, { Statuses, Score, Te, Judgment } from './Jyanken'
 
-const JyankeGamePage: React.FC = () => {
+export const App: React.FC = () => {
   const [scores, setScores] = useState<Score[]>([])
   const [status, setStatus] = useState<Statuses>({draw: 0, win: 0, lose: 0})
   const [tabIndex, setTabIndex] = useState(0)
@@ -174,21 +173,24 @@ const ScoreListItem: React.FC<ScoreListItemProps> = (props) => {
     </TableRow>
   )
 }
-
-ReactDOM.render(<JyankeGamePage/>, document.getElementById('root'))
 ~~~
 
 * src/index.css (src¥index.css) ファイルは削除してもよいです
 
 ### React Router
 
-* src/index.tsx (src¥index.tsx)
+* インストール手順
+
+~~~shell
+npm install react-router-dom @types/react-router-dom
+~~~
+
+
+* src/App.tsx (src¥App.tsx)
 
 ~~~js
 import React, { useState, useMemo } from 'react'
-import ReactDOM from 'react-dom'
-import { BrowserRouter as Router,
-  Switch, Route,  Redirect, Link, useLocation } from 'react-router-dom'
+import { Switch, Route,  Redirect, Link, useLocation } from 'react-router-dom'
 import Button from '@material-ui/core/Button'
 import Paper from '@material-ui/core/Paper'
 import Table from '@material-ui/core/Table'
@@ -198,7 +200,7 @@ import TableHead from '@material-ui/core/TableHead'
 import TableRow from '@material-ui/core/TableRow'
 import Jyanken, { Statuses, Score, Te, Judgment } from './Jyanken'
 
-const JyankeGamePage: React.FC = () => {
+export const App: React.FC = () => {
   const [scores, setScores] = useState<Score[]>([])
   const [status, setStatus] = useState<Statuses>({draw: 0, win: 0, lose: 0})
   const jyanken = useMemo(() => new Jyanken(), [])
@@ -307,10 +309,21 @@ const ScoreListItem: React.FC<ScoreListItemProps> = (props) => {
     </TableRow>
   )
 }
+~~~
+
+* src/index.tsx (src¥index.tsx)
+
+~~~js
+import React from 'react'
+import ReactDOM from 'react-dom'
+import { BrowserRouter as Router } from 'react-router-dom'  // ← ①
+import { App } from './App'
 
 ReactDOM.render(
-  <Router>
-    <JyankeGamePage/>
+  <Router>     // ← ⑨
+    <React.StrictMode>
+      <App />
+    </React.StrictMode>,
   </Router>,
   document.getElementById('root')
 )
@@ -335,11 +348,10 @@ npm start
 #### コード
 
 
-* src/index.tsx (src¥index.tsx)
+* src/App.tsx (src¥App.tsx)
 
 ~~~js
 import React, { useState } from 'react'
-import ReactDOM from 'react-dom'
 import Card from '@material-ui/core/Card'
 import CardHeader from '@material-ui/core/CardHeader'
 import CardActions from '@material-ui/core/CardActions'
@@ -358,7 +370,7 @@ import TemperatureIcon from '@material-ui/icons/ShowChart'
 
 type PlaceType = {name: string, id: number}
 
-const WeatherPage: React.FC = () => {
+export const App: React.FC = () => {
   const [placeIndex, setPlaceIndex] = useState(-1)
   const [weather, setWeather] = useState("")
   const [temperature, setTemperature] = useState(0)
@@ -427,7 +439,7 @@ const WeaterInfomation: React.FC<WeaterInfomationProps> = ({weather, temperature
   </List>
 )
 
-ttype PlaceSelectorProps = {
+type PlaceSelectorProps = {
   places: PlaceType[]
   placeIndex: number
   actionSelect: (index: number) => void
@@ -441,35 +453,16 @@ const PlaceSelector: React.FC<PlaceSelectorProps> = ({places, placeIndex, action
     </Select>
   </FormControl>
 )
-
-
-ReactDOM.render(<WeatherPage />, document.getElementById('root'))
 ~~~
 
 ## 付録: GraphQLサンプル
 
-* src/index.tsx
+* src/App.tsx
 
 ~~~js
 import React from 'react'
-import ReactDOM from 'react-dom'
-import ApolloClient from "apollo-boost"
-import { ApolloProvider } from 'react-apollo'
-import gql from "graphql-tag"
+import gql from 'graphql-tag'
 import { useQuery } from '@apollo/react-hooks'
-
-const client = new ApolloClient({
-  uri: 'https://api.github.com/graphql',
-  request: operation => {
-    operation.setContext({
-      headers: {
-        authorization: `Bearer ${
-          process.env.REACT_APP_GITHUB_PERSONAL_ACCESS_TOKEN
-        }`
-      }
-    });
-  }
-})
 
 type ReositoryNode = {
   id: string
@@ -497,7 +490,7 @@ const query = gql`
     }
   }`
 
-const App = () => {
+export const App = () => {
     const { loading, error, data } = useQuery<GitHubUserRepostories>(query)
 
     if (loading) return <p>Loading...</p>
@@ -514,7 +507,29 @@ const App = () => {
       </ul>
     )
 }
+~~~
 
+* src/index.tsx
+
+~~~js
+import React from 'react'
+import ReactDOM from 'react-dom'
+import { ApolloProvider } from 'react-apollo'
+import ApolloClient from "apollo-boost"
+import { App } from './App'
+
+const client = new ApolloClient({
+  uri: 'https://api.github.com/graphql',
+  request: operation => {
+    operation.setContext({
+      headers: {
+        authorization: `Bearer ${
+          process.env.REACT_APP_GITHUB_PERSONAL_ACCESS_TOKEN
+        }`
+      }
+    });
+  }
+})
 
 ReactDOM.render(
   <ApolloProvider client={client}>
