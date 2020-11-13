@@ -48,7 +48,7 @@ export const App: React.FC = () => {
   const [weight, setWeight] = useState("")
   const [judgeText, setJudgeText] = useState("")
 
-  const judgeBMI = () => {
+  const jugeButton = () => {
     const heightM = Number(height) / 100
     const bmi = Number(weight) / (heightM ** 2)
 
@@ -65,9 +65,11 @@ export const App: React.FC = () => {
 
   return (
     <>
-      <p> 身長：<input type="text" value={height} placeholder="170" onChange={(e) => setHeight(e.target.value)} /></p>
-      <p> 体重：<input type="text" value={weight} placeholder="60" onChange={(e) => setWeight(e.target.value)} /></p>
-      <p> <input type="submit" value="BMI" onClick={() => judgeBMI()} /></p>
+      <p> 身長：<input type="text" value={height} placeholder="170"
+                 onChange={(e) => setHeight(e.target.value)} /></p>
+      <p> 体重：<input type="text" value={weight} placeholder="60"
+                 onChange={(e) => setWeight(e.target.value)} /></p>
+      <p> <input type="submit" value="BMI" onClick={() => jugeButton()} /></p>
       <p> {judgeText ?  <div style={boxStyle}>{judgeText}</div> : null} </p>
     </>
   )
