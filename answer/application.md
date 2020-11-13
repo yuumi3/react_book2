@@ -4,7 +4,6 @@
 
 ~~~js
 import React, { useState, useMemo } from 'react'
-import ReactDOM from 'react-dom'
 import Button from '@material-ui/core/Button'
 import Paper from '@material-ui/core/Paper'
 import ExpansionPanel from '@material-ui/core/ExpansionPanel'
@@ -18,7 +17,7 @@ import TableHead from '@material-ui/core/TableHead'
 import TableRow from '@material-ui/core/TableRow'
 import Jyanken, { Statuses, Score, Te, Judgment } from './Jyanken'
 
-const JyankeGamePage: React.FC = () => {
+export const App: React.FC = () => {
   const [scores, setScores] = useState<Score[]>([])
   const [status, setStatus] = useState<Statuses>({draw: 0, win: 0, lose: 0})
   const [panelIndex, setPanelIndex] = useState(0)
@@ -72,7 +71,6 @@ const JyankeGamePage: React.FC = () => {
 
 ~~~js
 import React, { useState } from 'react'
-import ReactDOM from 'react-dom'
 import Card from '@material-ui/core/Card'
 import CardHeader from '@material-ui/core/CardHeader'
 import CardActions from '@material-ui/core/CardActions'
@@ -92,7 +90,7 @@ import OpacityIcon from '@material-ui/icons/Opacity'
 
 type PlaceType = {name: string, id: number}
 
-const WeatherPage: React.FC = () => {
+export const App: React.FC = () => {
   const [placeIndex, setPlaceIndex] = useState(-1)
   const [weather, setWeather] = useState("")
   const [temperature, setTemperature] = useState(0)

@@ -2,11 +2,17 @@
 
 ## Jyankenにクリアボタンを追加
 
+* @material-ui/iconsの追加
+
+~~~
+npm install @material-ui/icons
+~~~
+
 * src/jyankenSlice.ts
 
 ~~~js
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import { stat } from 'fs'
+import { combineReducers } from '@reduxjs/toolkit'
 
 export enum Te { Guu, Choki, Paa }
 export enum Judgment {Draw, Win, Lose}
@@ -47,6 +53,12 @@ const jyankenSlice = createSlice({
 export const { pon, clear } = jyankenSlice.actions
 export const jyankenReducer = jyankenSlice.reducer
 
+export const rootReducer = combineReducers({
+  jyanken: jyankenReducer
+})
+export type RootState = ReturnType<typeof rootReducer>
+
+
 const calcStatus = (scores: Score[]):Statuses => {
   const countScore = (judge: Judgment): number => scores.filter(e => e.judgment === judge).length
   return {draw: countScore(Judgment.Draw), win: countScore(Judgment.Win), lose: countScore(Judgment.Lose)}
@@ -54,16 +66,12 @@ const calcStatus = (scores: Score[]):Statuses => {
 ~~~
 
 
-* src/index.tsx
+* src/App.tsx
 
 ~~~js
 import React from 'react'
-import ReactDOM from 'react-dom'
-import { BrowserRouter as Router,
-         Switch, Route,  Redirect, Link, useLocation } from 'react-router-dom'
-import { Provider, useDispatch, useSelector } from  'react-redux'
-import { configureStore, getDefaultMiddleware, combineReducers } from '@reduxjs/toolkit'
-import logger from 'redux-logger'
+import { Switch, Route,  Redirect, Link, useLocation } from 'react-router-dom'
+import { useDispatch, useSelector } from  'react-redux'
 import Button from '@material-ui/core/Button'
 import Paper from '@material-ui/core/Paper'
 import Table from '@material-ui/core/Table'
@@ -71,7 +79,7 @@ import TableBody from '@material-ui/core/TableBody'
 import TableCell from '@material-ui/core/TableCell'
 import TableHead from '@material-ui/core/TableHead'
 import TableRow from '@material-ui/core/TableRow'
-import { jyankenReducer, Judgment, pon, clear, Te, Score } from './jyankenSlice'
+import { Judgment, pon, clear, Te, Score, RootState } from './jyankenSlice'
 import { IconButton } from '@material-ui/core'
 import DeleteIcon from '@material-ui/icons/Delete'
 

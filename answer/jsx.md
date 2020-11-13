@@ -2,9 +2,10 @@
 
 ## 残高の表示を追加してみて下さい
 
+* src/App.tsx
+
 ~~~js
 import React from 'react'
-import ReactDOM from 'react-dom'
 import './index.css'
 
 type BookType = {
@@ -12,7 +13,7 @@ type BookType = {
   item: string
   amount: number
 }
-const MoneyBook: React.FC = () => {
+export const App: React.FC = () => {
   const books: BookType[] = [
     {date: "1/1", item: "お年玉", amount: 10000},
     {date: "1/3", item: "ケーキ", amount: -500},
@@ -56,7 +57,4 @@ const MoneyBookItem: React.FC<MoneyBookItemType> = (props) => {
 const Title: React.FC = (props) => {
   return (<h1>{props.children}</h1>)
 }
-
-
-ReactDOM.render(<MoneyBook />, document.getElementById('root'))
 ~~~

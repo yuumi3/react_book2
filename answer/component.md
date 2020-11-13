@@ -2,12 +2,13 @@
 
 ## 起動時に、グー、グー、引き分けが表示されないようにする
 
+* src/App.tsx
+
 ~~~js
 import React, { useState } from 'react'
-import ReactDOM from 'react-dom'
 import './index.css'
 
-const JyankeGamePage: React.FC = () => {
+export const App: React.FC = () => {
   const [human, setHuman] = useState<number>(0)
   const [computer, setComputer] = useState<number>(0)
   const [showScore, setShowScore] = useState<boolean>(false)
@@ -37,11 +38,12 @@ const JyankeGamePage: React.FC = () => {
 
 ## BMI判定をしてくれるアプリ
 
+* src/App.tsx
+
 ~~~js
 import React, { useState } from 'react'
-import ReactDOM from 'react-dom'
 
-const Bmi: React.FC = () => {
+export const App: React.FC = () => {
   const [height, setHeight] = useState("")
   const [weight, setWeight] = useState("")
   const [judgeText, setJudgeText] = useState("")
@@ -70,6 +72,4 @@ const Bmi: React.FC = () => {
     </>
   )
 }
-
-ReactDOM.render(<Bmi />, document.getElementById('root'))
 ~~~
