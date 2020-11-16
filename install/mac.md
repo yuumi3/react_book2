@@ -2,7 +2,19 @@
 
 対象OS: macOS 10.15
 
-## Node.js のインストール
+
+## 1. Chromeのインストール
+
+[https://www.google.com/chrome/](https://www.google.com/chrome/)からダウンロードしてください。
+
+## 2. VSCodeのインストール
+
+[https://azure.microsoft.com/ja-jp/products/visual-studio-code/](https://azure.microsoft.com/ja-jp/products/visual-studio-code/)からダウンロードしてください。
+
+とくに必要なプラグインはありませんが、便利そうなプラグインや見やすいテーマがあればインストールしてください。  
+メニューの日本語化はお勧めしません。
+
+## 3. Node.js のインストール
 
 #### Homebrewがインストールされている場合
 
@@ -27,7 +39,7 @@ node -v
 
 ※ プロンプトは省略しました
 
-## インストール確認用Reactプロジェクトの作成
+## 4. インストール確認用Reactプロジェクトの作成
 
 ~~~shell
 mkdir ReactWorks
