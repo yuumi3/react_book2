@@ -6,6 +6,7 @@
 
 * [インストール手順 Mac](install/mac.md)
 * [インストール手順 Windows](install/windows.md)
+* [VSCode 1.51.1 + React 17の問題対応](install/vscode1_51_1.md)
 
 ## コード
 
