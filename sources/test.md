@@ -135,7 +135,7 @@ describe('Jyanken', () => {
 
 ここでは、じゃんけんの手のボタン、結果・成績切り替えタブにIDを追加しました。
 
-* src/index.tsx(src¥index.tsx) のコードの変更 (1)
+* src/App.tsx(src¥App.tsx) のコードの変更 (1)
 
 ~~~js
 const JyankenBox: React.FC<JyankenBoxProps> = (props) => {
@@ -150,7 +150,7 @@ const JyankenBox: React.FC<JyankenBoxProps> = (props) => {
 }
 ~~~
 
-* src/index.tsx(src¥index.tsx) のコードの変更 (2)
+* src/App.tsx(src¥App.tsx) のコードの変更 (2)
 
 ~~~js
 const JyankeGamePage: React.FC = () => {
@@ -161,10 +161,11 @@ const JyankeGamePage: React.FC = () => {
     <div style={{marginLeft: 30}}>
       <Header>じゃんけん ポン！</Header>
       <JyankenBox actionPon={(te) => pon(te)} />
-      <Paper style={{width: 400}}>
-        <Link id="tab-scores" ...>対戦結果</Button></Link>
-        <Link id="tab-status" ...>対戦成績</Button></Link>
-
+        <Paper style={{width: 400}}>
+          <Tabs value={tabIndex} onChange={(_, ix) => tabChange(ix)}>
+            <Tab id="tab-scores" label="対戦結果" value={0} style={tabStyle}/>
+            <Tab id="tab-status" label="対戦成績" value={1} style={tabStyle} />
+          </Tabs>
   ・・・省略・・・
 ~~~
 
