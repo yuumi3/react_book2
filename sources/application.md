@@ -128,11 +128,11 @@ const JyankenBox: React.FC<JyankenBoxProps> = (props) => {
   const style = {marginLeft: 20}
   return (
     <div style={{marginTop: 40, marginBottom: 30, marginLeft: 50}}>
-      <Button variant="contained" id="btn-guu"
+      <Button variant="contained"
         onClick={() => props.actionPon(Te.Guu)} style={style}>グー</Button>
-      <Button variant="contained" id="btn-choki"
+      <Button variant="contained"
         onClick={() => props.actionPon(Te.Choki)} style={style}>チョキ</Button>
-      <Button variant="contained" id="btn-paa"
+      <Button variant="contained"
         onClick={() => props.actionPon(Te.Paa)} style={style}>パー</Button>
     </div>
   )
