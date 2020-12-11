@@ -9,7 +9,7 @@
 ~~~js
 import React, { useState } from 'react'
 
-export const jugeBMI = (height: number, weight: number): string => {
+export const judgeBMI = (height: number, weight: number): string => {
   const heightM = height / 100
   const bmi = weight / (heightM ** 2)
 
@@ -28,7 +28,7 @@ export const App: React.FC = () => {
   const [judgeText, setJudgeText] = useState("")
 
   const jugeButton = () => {
-    setJudgeText(jugeBMI( Number(height), Number(weight)))
+    setJudgeText(judgeBMI( Number(height), Number(weight)))
   }
 
   const boxStyle = {width: 100, height: 50, border: "solid 1px #000"}
@@ -49,18 +49,18 @@ export const App: React.FC = () => {
 * src/bmi.test.ts
 
 ~~~js
-import { jugeBMI } from './App'
+import { judgeBMI } from './App'
 
-describe('jugeBMI', () => {
+describe('judgeBMI', () => {
 
   test('身長:170、体重:60で "標準" が戻る', () => {
-    expect(jugeBMI(170, 60)).toBe("標準")
+    expect(judgeBMI(170, 60)).toBe("標準")
   })
   test('身長:170、体重:40で "やせ" が戻る', () => {
-    expect(jugeBMI(170, 40)).toBe("やせ")
+    expect(judgeBMI(170, 40)).toBe("やせ")
   })
   test('身長:170、体重:80で "肥満" が戻る', () => {
-    expect(jugeBMI(170, 80)).toBe("肥満")
+    expect(judgeBMI(170, 80)).toBe("肥満")
   })
 
 })
