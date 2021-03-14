@@ -21,7 +21,19 @@
 インストール後コマンドプロンプトを起動し、でバージョンを確認
 
 ```shell
-node -v
+node --version
+```
+※ プロンプトは省略しました
+
+#### Proxyの設定が必要な場合
+
+社内のネットワークにFirewall等があり、プロキシサーバーを使う場合はProxyの設定が必要になります。
+以下の`SERVER` , `PORT`の部分を社内のプロキシサーバーに置き換えて実行してください。
+
+```shell
+npm -g config set proxy "http://SERVER:PORT/"
+npm -g config set https-proxy "https://SERVER:PORT/"
+npm -g config set registry "http://registry.npmjs.org/"
 ```
 
 ※ プロンプトは省略しました
