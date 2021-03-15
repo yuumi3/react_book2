@@ -63,4 +63,12 @@ npm start
 
 ※ プロンプトは省略しました
 
+npxコマンドを実行したさいに以下のような確認がある場合は`y`をタイプしてください。
+
+```shell
+Need to install the following packages:
+  create-react-app
+Ok to proceed? (y) 
+```
+
 ブラウザーが `http://localhost:3000` をアクセスし、ブラウザー画面に `Hello Word!`  が表示されれば完了です！
